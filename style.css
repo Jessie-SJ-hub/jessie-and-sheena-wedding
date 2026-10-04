@@ -1646,3 +1646,45 @@ body.rsvp-modal-open {
     right: 15px;
   }
 }
+
+/* ==================================================
+   GOOGLE MAP LOCATION BUTTONS
+   ================================================== */
+
+.detail-card a {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 10px 20px;
+
+    border: 1px solid #AFCFE3;
+    border-radius: 999px;
+
+    color: #607887;
+    background: transparent;
+
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.detail-card a:hover {
+    background: #AFCFE3;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .detail-card a {
+        margin-top: 20px;
+        padding: 10px 18px;
+        font-size: 9px;
+    }
+}
