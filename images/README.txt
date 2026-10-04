@@ -1,0 +1,1 @@
+Place your hero photo here and name it hero.jpg. Add gallery photos to this folder as we customize the site.
