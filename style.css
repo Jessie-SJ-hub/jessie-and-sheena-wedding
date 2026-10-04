@@ -1807,26 +1807,6 @@ body.rsvp-modal-open {
     border: 1px solid #D8E1E5;
     display: block;
 }
-
-.dusty-blue {
-    background: #AFC7D6;
-}
-
-.soft-gray {
-    background: #C8CDD0;
-}
-
-.ivory {
-    background: #F4F0E6;
-}
-
-.color-item small {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7px;
-    letter-spacing: 1.5px;
-    color: #8FA9B8;
-}
-
 /* Mobile */
 @media (max-width: 700px) {
     .what-to-wear {
