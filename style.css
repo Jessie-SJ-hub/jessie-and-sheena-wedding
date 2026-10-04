@@ -1830,3 +1830,25 @@ body.rsvp-modal-open {
         height: 38px;
     }
 }
+
+/* Wedding Color Palette */
+
+.dusty-blue {
+    background: #AFC7D6;
+}
+
+.soft-gray {
+    background: #C8CDD0;
+}
+
+.ivory {
+    background: #F4F0E6;
+}
+
+.color-item small {
+    display: block;
+    color: #8FA9B8;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+}
