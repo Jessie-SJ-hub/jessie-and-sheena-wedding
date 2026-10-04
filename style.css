@@ -481,6 +481,7 @@ footer h2{font-size:45px;margin:0}@media(max-width:700px){.details,.timeline,.pe
     color: #6B7378;
     font-size: 15px;
     line-height: 2;
+    text-align: center;
 }
 
 .intro-line {
