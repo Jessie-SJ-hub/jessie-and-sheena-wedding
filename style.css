@@ -633,44 +633,50 @@ footer h2{font-size:45px;margin:0}@media(max-width:700px){.details,.timeline,.pe
 }
 
 /* ==================================================
-   OUR MEMORIES / GALLERY
+   PHOTO GALLERY
    ================================================== */
 
 .gallery {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 110px 40px;
+    padding: 75px 25px;
     background: #F8FBFC;
+    border-top: 1px solid #E2EBEF;
 }
 
 .gallery .section-heading {
     text-align: center;
-    margin-bottom: 55px;
+    margin-bottom: 40px;
 }
 
 .gallery .eyebrow {
+    margin: 0 0 18px;
     color: #8FA9B8;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
 }
 
 .gallery .section-heading h2 {
-    color: #454A4F;
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: #536A78;
 }
 
 .photo-grid {
+    max-width: 950px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+    gap: 18px;
 }
 
 .photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
-    background: #E8F2F7;
-    aspect-ratio: 1 / 1;
-}
-
-.photo:nth-child(2),
-.photo:nth-child(5) {
-    margin-top: 45px;
+    background: #EAF1F4;
+    border: 1px solid #E2EBEF;
 }
 
 .photo img {
@@ -678,33 +684,38 @@ footer h2{font-size:45px;margin:0}@media(max-width:700px){.details,.timeline,.pe
     height: 100%;
     display: block;
     object-fit: cover;
-
-    transition: transform 0.7s ease;
+    transition: transform 0.5s ease;
 }
 
+/* Subtle desktop hover effect */
 .photo:hover img {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 
-/* ==================================================
-   GALLERY - MOBILE
-   ================================================== */
+/* ==================== MOBILE ==================== */
 
 @media (max-width: 700px) {
 
     .gallery {
-        padding: 80px 20px;
+        padding: 60px 20px;
+    }
+
+    .gallery .section-heading {
+        margin-bottom: 30px;
+    }
+
+    .gallery .section-heading h2 {
+        font-size: 30px;
     }
 
     .photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 
-    .photo:nth-child(2),
-    .photo:nth-child(5) {
-        margin-top: 0;
+    .photo {
+        aspect-ratio: 4 / 5;
     }
 
 }
