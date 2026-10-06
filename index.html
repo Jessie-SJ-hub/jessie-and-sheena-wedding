@@ -11,6 +11,15 @@
 </head>
 <body>
 
+<!-- ==================== WEDDING MUSIC ==================== -->
+<audio id="weddingMusic" loop>
+  <source src="wedding-music.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicToggle" class="music-toggle" aria-label="Play wedding music">
+  ♪
+</button>
+
 <!-- ==================== COVER / HERO ==================== -->
 <header class="hero">
   <div class="hero-overlay"></div>
@@ -722,6 +731,51 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// ==================== WEDDING MUSIC ====================
+
+const weddingMusic = document.getElementById("weddingMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+let musicPlaying = false;
+
+function playWeddingMusic() {
+    weddingMusic.play()
+        .then(() => {
+            musicPlaying = true;
+            musicToggle.classList.add("playing");
+            musicToggle.innerHTML = "❚❚";
+            musicToggle.setAttribute("aria-label", "Pause wedding music");
+        })
+        .catch(() => {
+            console.log("Music playback requires user interaction.");
+        });
+}
+
+function pauseWeddingMusic() {
+    weddingMusic.pause();
+    musicPlaying = false;
+    musicToggle.classList.remove("playing");
+    musicToggle.innerHTML = "♪";
+    musicToggle.setAttribute("aria-label", "Play wedding music");
+}
+
+musicToggle.addEventListener("click", function() {
+    if (musicPlaying) {
+        pauseWeddingMusic();
+    } else {
+        playWeddingMusic();
+    }
+});
+
+// Start music when the guest first interacts with the page
+document.addEventListener("click", function startMusicOnce() {
+    if (!musicPlaying) {
+        playWeddingMusic();
+    }
+
+    document.removeEventListener("click", startMusicOnce);
+}, { once: true });
 </script>
 
 
