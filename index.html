@@ -776,6 +776,159 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+ /* ==================================================
+     WEDDING MUSIC + INVITATION OPENING
+     ================================================== */
+
+  const weddingMusic =
+    document.getElementById("weddingMusic");
+
+  const musicToggle =
+    document.getElementById("musicToggle");
+
+  const openInvitation =
+    document.getElementById("openInvitation");
+
+  const invitationOpening =
+    document.getElementById("invitationOpening");
+
+  let musicPlaying = false;
+  let fadeTimer = null;
+
+  const MUSIC_VOLUME = 0.55;
+  const FADE_DURATION = 1800;
+
+
+  /* ==================== FADE IN ==================== */
+
+  function fadeInMusic() {
+
+    clearInterval(fadeTimer);
+
+    weddingMusic.volume = 0;
+
+    weddingMusic.play()
+      .then(() => {
+
+        musicPlaying = true;
+
+        musicToggle.classList.add("playing");
+        musicToggle.innerHTML = "❚❚";
+
+        musicToggle.setAttribute(
+          "aria-label",
+          "Pause wedding music"
+        );
+
+        const steps = 30;
+        const stepTime = FADE_DURATION / steps;
+        const volumeStep = MUSIC_VOLUME / steps;
+
+        let currentStep = 0;
+
+        fadeTimer = setInterval(() => {
+
+          currentStep++;
+
+          weddingMusic.volume =
+            Math.min(
+              MUSIC_VOLUME,
+              volumeStep * currentStep
+            );
+
+          if (currentStep >= steps) {
+            clearInterval(fadeTimer);
+          }
+
+        }, stepTime);
+
+      })
+      .catch((error) => {
+
+        console.log(
+          "Music playback was blocked:",
+          error
+        );
+
+      });
+  }
+
+
+  /* ==================== FADE OUT ==================== */
+
+  function fadeOutMusic() {
+
+    clearInterval(fadeTimer);
+
+    const startVolume = weddingMusic.volume;
+
+    const steps = 30;
+    const stepTime = FADE_DURATION / steps;
+    const volumeStep = startVolume / steps;
+
+    let currentStep = 0;
+
+    fadeTimer = setInterval(() => {
+
+      currentStep++;
+
+      weddingMusic.volume =
+        Math.max(
+          0,
+          startVolume - (volumeStep * currentStep)
+        );
+
+      if (currentStep >= steps) {
+
+        clearInterval(fadeTimer);
+
+        weddingMusic.pause();
+        weddingMusic.volume = 0;
+
+        musicPlaying = false;
+
+        musicToggle.classList.remove("playing");
+        musicToggle.innerHTML = "♪";
+
+        musicToggle.setAttribute(
+          "aria-label",
+          "Play wedding music"
+        );
+      }
+
+    }, stepTime);
+  }
+
+
+  /* ==================== OPEN INVITATION ==================== */
+
+  openInvitation.addEventListener("click", function() {
+
+    invitationOpening.classList.add("hide");
+
+    fadeInMusic();
+
+  });
+
+
+  /* ==================== MUSIC BUTTON ==================== */
+
+  musicToggle.addEventListener("click", function(event) {
+
+    event.stopPropagation();
+
+    if (musicPlaying) {
+
+      fadeOutMusic();
+
+    } else {
+
+      fadeInMusic();
+
+    }
+
+  });
+
 
 </script>
 
