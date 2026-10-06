@@ -929,6 +929,318 @@ setInterval(updateCountdown, 1000);
 
   });
 
+/* ==================================================
+   GALLERY LIGHTBOX
+   ================================================== */
+
+const galleryPhotos = Array.from(
+    document.querySelectorAll(".photo-grid .photo img")
+);
+
+const galleryLightbox =
+    document.getElementById("galleryLightbox");
+
+const galleryLightboxImage =
+    document.getElementById("galleryLightboxImage");
+
+const galleryLightboxClose =
+    document.getElementById("galleryLightboxClose");
+
+const galleryLightboxPrev =
+    document.getElementById("galleryLightboxPrev");
+
+const galleryLightboxNext =
+    document.getElementById("galleryLightboxNext");
+
+const galleryLightboxCaption =
+    document.getElementById("galleryLightboxCaption");
+
+
+let galleryCurrentIndex = 0;
+
+
+/* ==================== SWIPE ==================== */
+
+let galleryTouchStartX = 0;
+let galleryTouchStartY = 0;
+
+
+/* ==================== UPDATE PHOTO ==================== */
+
+function updateGalleryLightbox() {
+
+    if (!galleryPhotos.length) return;
+
+    const photo =
+        galleryPhotos[galleryCurrentIndex];
+
+    galleryLightboxImage.src =
+        photo.src;
+
+    galleryLightboxImage.alt =
+        photo.alt || "Wedding photo";
+
+    galleryLightboxCaption.textContent =
+        `${String(galleryCurrentIndex + 1).padStart(2, "0")} / ${String(galleryPhotos.length).padStart(2, "0")}`;
+}
+
+
+/* ==================== OPEN ==================== */
+
+function openGalleryLightbox(index) {
+
+    galleryCurrentIndex =
+        (index + galleryPhotos.length) %
+        galleryPhotos.length;
+
+    updateGalleryLightbox();
+
+    galleryLightbox.classList.add("active");
+
+    galleryLightbox.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "lightbox-open"
+    );
+}
+
+
+/* ==================== CLOSE ==================== */
+
+function closeGalleryLightbox() {
+
+    galleryLightbox.classList.remove(
+        "active"
+    );
+
+    galleryLightbox.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.classList.remove(
+        "lightbox-open"
+    );
+}
+
+
+/* ==================== PREVIOUS ==================== */
+
+function showPreviousGalleryPhoto() {
+
+    galleryCurrentIndex =
+        (galleryCurrentIndex - 1 +
+            galleryPhotos.length) %
+        galleryPhotos.length;
+
+    updateGalleryLightbox();
+}
+
+
+/* ==================== NEXT ==================== */
+
+function showNextGalleryPhoto() {
+
+    galleryCurrentIndex =
+        (galleryCurrentIndex + 1) %
+        galleryPhotos.length;
+
+    updateGalleryLightbox();
+}
+
+
+/* ==================== CLICK PHOTO ==================== */
+
+galleryPhotos.forEach((photo, index) => {
+
+    photo.addEventListener(
+        "click",
+        function() {
+
+            openGalleryLightbox(index);
+
+        }
+    );
+
+});
+
+
+/* ==================== BUTTONS ==================== */
+
+galleryLightboxClose.addEventListener(
+    "click",
+    closeGalleryLightbox
+);
+
+
+galleryLightboxPrev.addEventListener(
+    "click",
+    showPreviousGalleryPhoto
+);
+
+
+galleryLightboxNext.addEventListener(
+    "click",
+    showNextGalleryPhoto
+);
+
+
+/* ==================== CLICK OUTSIDE ==================== */
+
+galleryLightbox.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            galleryLightbox
+        ) {
+
+            closeGalleryLightbox();
+
+        }
+
+    }
+);
+
+
+/* ==================== KEYBOARD ==================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            !galleryLightbox.classList.contains(
+                "active"
+            )
+        ) {
+            return;
+        }
+
+
+        /* ESC */
+
+        if (event.key === "Escape") {
+
+            closeGalleryLightbox();
+
+        }
+
+
+        /* LEFT */
+
+        if (event.key === "ArrowLeft") {
+
+            showPreviousGalleryPhoto();
+
+        }
+
+
+        /* RIGHT */
+
+        if (event.key === "ArrowRight") {
+
+            showNextGalleryPhoto();
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   MOBILE SWIPE
+   ================================================== */
+
+galleryLightbox.addEventListener(
+    "touchstart",
+    function(event) {
+
+        if (!event.touches.length) return;
+
+        galleryTouchStartX =
+            event.touches[0].clientX;
+
+        galleryTouchStartY =
+            event.touches[0].clientY;
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+galleryLightbox.addEventListener(
+    "touchend",
+    function(event) {
+
+        if (!event.changedTouches.length) {
+            return;
+        }
+
+
+        const touchEndX =
+            event.changedTouches[0].clientX;
+
+        const touchEndY =
+            event.changedTouches[0].clientY;
+
+
+        const deltaX =
+            touchEndX -
+            galleryTouchStartX;
+
+        const deltaY =
+            touchEndY -
+            galleryTouchStartY;
+
+
+        /*
+         * Ignore vertical gestures
+         */
+
+        if (
+            Math.abs(deltaX) < 45 ||
+            Math.abs(deltaX) <
+            Math.abs(deltaY)
+        ) {
+
+            return;
+
+        }
+
+
+        /* SWIPE LEFT = NEXT */
+
+        if (deltaX < 0) {
+
+            showNextGalleryPhoto();
+
+        }
+
+        /* SWIPE RIGHT = PREVIOUS */
+
+        else {
+
+            showPreviousGalleryPhoto();
+
+        }
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+
+</script>
+     
 <!-- ==================================================
      GALLERY LIGHTBOX
      ================================================== -->
@@ -936,27 +1248,20 @@ setInterval(updateCountdown, 1000);
 
   <div class="gallery-lightbox-inner">
 
-    <!-- CLOSE -->
-    <button
-      type="button"
+    <button type="button"
       class="gallery-lightbox-close"
       id="galleryLightboxClose"
-      aria-label="Close photo"
-    >
+      aria-label="Close photo">
       ×
     </button>
 
-    <!-- PREVIOUS -->
-    <button
-      type="button"
+    <button type="button"
       class="gallery-lightbox-prev"
       id="galleryLightboxPrev"
-      aria-label="Previous photo"
-    >
+      aria-label="Previous photo">
       ←
     </button>
 
-    <!-- PHOTO -->
     <img
       class="gallery-lightbox-image"
       id="galleryLightboxImage"
@@ -964,28 +1269,22 @@ setInterval(updateCountdown, 1000);
       alt=""
     >
 
-    <!-- NEXT -->
-    <button
-      type="button"
+    <button type="button"
       class="gallery-lightbox-next"
       id="galleryLightboxNext"
-      aria-label="Next photo"
-    >
+      aria-label="Next photo">
       →
     </button>
 
-    <!-- PHOTO COUNTER -->
     <div
       class="gallery-lightbox-caption"
-      id="galleryLightboxCaption"
-    ></div>
+      id="galleryLightboxCaption">
+    </div>
 
   </div>
 
 </div>
 
-
-</script>
 
 
       
