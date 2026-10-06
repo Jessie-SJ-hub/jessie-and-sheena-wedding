@@ -578,7 +578,11 @@
 
   <div class="rsvp-modal-content">
 
-    <button class="rsvp-close" id="closeRsvp" aria-label="Close RSVP">
+    <button
+      class="rsvp-close"
+      id="closeRsvp"
+      aria-label="Close RSVP"
+    >
       &times;
     </button>
 
@@ -589,16 +593,24 @@
       target="rsvpFrame"
     >
 
-  	<div class="rsvp-modal-header">
-   	  <p class="rsvp-modal-eyebrow">WE HOPE YOU CAN JOIN US</p>
-    	  <h2>Kindly RSVP</h2>
-    	  <p>
-      	    Please let us know if you can celebrate this special day with us.
-          </p>
-        </div>
+      <div class="rsvp-modal-header">
+        <p class="rsvp-modal-eyebrow">
+          WE HOPE YOU CAN JOIN US
+        </p>
 
+        <h2>Kindly RSVP</h2>
+
+        <p>
+          Please let us know if you can celebrate
+          this special day with us.
+        </p>
+      </div>
+
+
+      <!-- FULL NAME -->
       <div class="form-group">
         <label for="guestName">Full Name</label>
+
         <input
           type="text"
           id="guestName"
@@ -608,46 +620,84 @@
         >
       </div>
 
-      <div class="form-group">
-        <label>Will you be attending?</label>
 
-        <div class="radio-group">
-          <label class="radio-option">
+      <!-- ATTENDANCE -->
+      <div class="form-group">
+
+        <label>Will you join us?</label>
+
+        <div class="radio-group rsvp-choice-group">
+
+          <label class="radio-option rsvp-choice">
             <input
               type="radio"
               name="attendance"
               value="Joyfully Accepts"
               required
             >
-            <span>Joyfully Accepts</span>
+
+            <span>
+              <strong>JOYFULLY ACCEPT</strong>
+              <small>
+                We’ll be there to celebrate with you!
+              </small>
+            </span>
           </label>
 
-          <label class="radio-option">
+
+          <label class="radio-option rsvp-choice">
             <input
               type="radio"
               name="attendance"
               value="Regretfully Declines"
             >
-            <span>Regretfully Declines</span>
+
+            <span>
+              <strong>REGRETFULLY DECLINE</strong>
+              <small>
+                We’re sorry we can’t make it,
+                but we’ll be celebrating with you in spirit.
+              </small>
+            </span>
           </label>
+
         </div>
+
       </div>
 
-      <div class="form-group">
-        <label for="guests">Number of Guests</label>
 
-        <select id="guests" name="guests" required>
-          <option value="" disabled selected>Select number of guests</option>
+      <!-- NUMBER OF GUESTS -->
+      <div class="form-group" id="guestCountGroup">
+
+        <label for="guests">
+          Number of Guests
+        </label>
+
+        <select
+          id="guests"
+          name="guests"
+          required
+        >
+          <option value="" disabled selected>
+            Select number of guests
+          </option>
+
           <option value="1">1 Guest</option>
           <option value="2">2 Guests</option>
           <option value="3">3 Guests</option>
           <option value="4">4 Guests</option>
           <option value="5">5 Guests</option>
         </select>
+
       </div>
 
+
+      <!-- MESSAGE -->
       <div class="form-group">
-        <label for="message">Message <span>(Optional)</span></label>
+
+        <label for="message">
+          Message <span>(Optional)</span>
+        </label>
 
         <textarea
           id="message"
@@ -655,14 +705,23 @@
           rows="4"
           placeholder="Leave us a message..."
         ></textarea>
+
       </div>
 
-      <button type="submit" class="rsvp-submit">
+
+      <!-- SUBMIT -->
+      <button
+        type="submit"
+        class="rsvp-submit"
+        id="rsvpSubmit"
+      >
         SEND RSVP
       </button>
 
     </form>
 
+
+    <!-- HIDDEN GOOGLE FORM FRAME -->
     <iframe
       name="rsvpFrame"
       id="rsvpFrame"
@@ -670,19 +729,29 @@
       title="RSVP submission frame"
     ></iframe>
 
+
+    <!-- SUCCESS MESSAGE -->
     <div class="rsvp-success" id="rsvpSuccess">
+
       <div class="success-icon">✓</div>
 
-      <h3>Thank You!</h3>
+      <h3 id="rsvpSuccessTitle">
+        Thank You!
+      </h3>
 
-      <p>
+      <p id="rsvpSuccessMessage">
         Your RSVP has been received.
         We can't wait to celebrate with you!
       </p>
 
-      <button type="button" class="rsvp-done" id="rsvpDone">
+      <button
+        type="button"
+        class="rsvp-done"
+        id="rsvpDone"
+      >
         CLOSE
       </button>
+
     </div>
 
   </div>
@@ -735,39 +804,281 @@
 
 
 <script>
-  const rsvpModal = document.getElementById("rsvpModal");
-  const openRsvp = document.getElementById("openRsvp");
-  const closeRsvp = document.getElementById("closeRsvp");
-  const rsvpOverlay = document.getElementById("rsvpOverlay");
-  const rsvpDone = document.getElementById("rsvpDone");
-  const rsvpForm = document.getElementById("rsvpForm");
-  const rsvpSuccess = document.getElementById("rsvpSuccess");
+  /* ==================================================
+   RSVP MODAL
+   ================================================== */
 
-  function openRsvpModal() {
-    rsvpModal.classList.add("active");
-    document.body.classList.add("rsvp-modal-open");
-  }
+const rsvpModal =
+  document.getElementById("rsvpModal");
 
-  function closeRsvpModal() {
-    rsvpModal.classList.remove("active");
-    document.body.classList.remove("rsvp-modal-open");
+const openRsvp =
+  document.getElementById("openRsvp");
 
-    setTimeout(() => {
-      rsvpForm.style.display = "block";
-      rsvpSuccess.classList.remove("active");
-    }, 300);
-  }
+const closeRsvp =
+  document.getElementById("closeRsvp");
 
-  openRsvp.addEventListener("click", openRsvpModal);
-  closeRsvp.addEventListener("click", closeRsvpModal);
-  rsvpOverlay.addEventListener("click", closeRsvpModal);
-  rsvpDone.addEventListener("click", closeRsvpModal);
+const rsvpOverlay =
+  document.getElementById("rsvpOverlay");
 
-  document.addEventListener("keydown", function(event) {
+const rsvpDone =
+  document.getElementById("rsvpDone");
+
+const rsvpForm =
+  document.getElementById("rsvpForm");
+
+const rsvpSuccess =
+  document.getElementById("rsvpSuccess");
+
+const rsvpSuccessTitle =
+  document.getElementById("rsvpSuccessTitle");
+
+const rsvpSuccessMessage =
+  document.getElementById("rsvpSuccessMessage");
+
+const rsvpSubmit =
+  document.getElementById("rsvpSubmit");
+
+const guestCountGroup =
+  document.getElementById("guestCountGroup");
+
+const guests =
+  document.getElementById("guests");
+
+const attendanceOptions =
+  document.querySelectorAll(
+    'input[name="attendance"]'
+  );
+
+
+/* ==================== OPEN ==================== */
+
+function openRsvpModal() {
+
+  rsvpModal.classList.add("active");
+
+  document.body.classList.add(
+    "rsvp-modal-open"
+  );
+
+}
+
+
+/* ==================== CLOSE ==================== */
+
+function closeRsvpModal() {
+
+  rsvpModal.classList.remove("active");
+
+  document.body.classList.remove(
+    "rsvp-modal-open"
+  );
+
+  setTimeout(() => {
+
+    rsvpForm.style.display = "block";
+
+    rsvpSuccess.classList.remove(
+      "active"
+    );
+
+    rsvpSubmit.disabled = false;
+
+    rsvpSubmit.textContent =
+      "SEND RSVP";
+
+  }, 300);
+
+}
+
+
+/* ==================== EVENTS ==================== */
+
+openRsvp.addEventListener(
+  "click",
+  openRsvpModal
+);
+
+closeRsvp.addEventListener(
+  "click",
+  closeRsvpModal
+);
+
+rsvpOverlay.addEventListener(
+  "click",
+  closeRsvpModal
+);
+
+rsvpDone.addEventListener(
+  "click",
+  closeRsvpModal
+);
+
+
+/* ==================== ESC KEY ==================== */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
     if (event.key === "Escape") {
+
       closeRsvpModal();
+
     }
-  });
+
+  }
+);
+
+
+/* ==================================================
+   ATTENDANCE SELECTION
+   ================================================== */
+
+attendanceOptions.forEach(
+  function(option) {
+
+    option.addEventListener(
+      "change",
+      function() {
+
+        if (
+          this.value ===
+          "Regretfully Declines"
+        ) {
+
+          /* Disable guest count */
+
+          guests.value = "";
+
+          guests.disabled = true;
+
+          guests.removeAttribute(
+            "required"
+          );
+
+          guestCountGroup.classList.add(
+            "disabled"
+          );
+
+          rsvpSubmit.textContent =
+            "CONFIRM DECLINE";
+
+        }
+
+        else {
+
+          /* Enable guest count */
+
+          guests.disabled = false;
+
+          guests.setAttribute(
+            "required",
+            ""
+          );
+
+          guestCountGroup.classList.remove(
+            "disabled"
+          );
+
+          rsvpSubmit.textContent =
+            "SEND RSVP";
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* ==================================================
+   RSVP SUBMISSION
+   ================================================== */
+
+rsvpForm.addEventListener(
+  "submit",
+  function() {
+
+    const selectedAttendance =
+      document.querySelector(
+        'input[name="attendance"]:checked'
+      );
+
+    if (!selectedAttendance) {
+      return;
+    }
+
+
+    /* Prevent multiple submissions */
+
+    rsvpSubmit.disabled = true;
+
+
+    if (
+      selectedAttendance.value ===
+      "Regretfully Declines"
+    ) {
+
+      rsvpSubmit.textContent =
+        "SENDING...";
+
+    }
+
+    else {
+
+      rsvpSubmit.textContent =
+        "SENDING...";
+
+    }
+
+
+    /* Save selected response */
+
+    const isDeclining =
+      selectedAttendance.value ===
+      "Regretfully Declines";
+
+
+    setTimeout(
+      function() {
+
+        rsvpForm.style.display =
+          "none";
+
+        rsvpSuccess.classList.add(
+          "active"
+        );
+
+
+        /* Dynamic success message */
+
+        if (isDeclining) {
+
+          rsvpSuccessTitle.textContent =
+            "Thank You for Letting Us Know";
+
+          rsvpSuccessMessage.textContent =
+            "We’re sorry we won’t be able to celebrate with you in person, but we truly appreciate you letting us know. We’ll be celebrating together in spirit.";
+
+        }
+
+        else {
+
+          rsvpSuccessTitle.textContent =
+            "We Can’t Wait to Celebrate!";
+
+          rsvpSuccessMessage.textContent =
+            "Your RSVP has been received. We’re so happy you’ll be joining us on our special day!";
+
+        }
+
+      },
+      1200
+    );
+
+  }
+);
 
   rsvpForm.addEventListener("submit", function() {
     const submitButton = rsvpForm.querySelector('button[type="submit"]');
