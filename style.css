@@ -1868,3 +1868,97 @@ body.rsvp-modal-open {
         min-height: 38px;
     }
 }
+
+/* ==================================================
+   WEDDING MUSIC PLAYER
+   ================================================== */
+
+.music-toggle {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 9998;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(143, 169, 184, 0.65);
+    border-radius: 50%;
+
+    background: rgba(248, 251, 252, 0.92);
+    color: #536A78;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(60, 75, 85, 0.15);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.music-toggle:hover {
+    transform: translateY(-3px);
+    background: #536A78;
+    color: #ffffff;
+    box-shadow: 0 12px 30px rgba(60, 75, 85, 0.22);
+}
+
+.music-toggle.playing {
+    background: #E8F2F7;
+    border-color: #AFCFE3;
+    color: #536A78;
+}
+
+/* Subtle pulse while music is playing */
+.music-toggle.playing::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+
+    border: 1px solid rgba(175, 207, 227, 0.45);
+    border-radius: 50%;
+
+    animation: musicPulse 2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes musicPulse {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.35);
+    }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    .music-toggle {
+        width: 44px;
+        height: 44px;
+
+        right: 16px;
+        bottom: 16px;
+
+        font-size: 20px;
+    }
+
+}
