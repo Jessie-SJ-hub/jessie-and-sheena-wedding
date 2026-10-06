@@ -1962,3 +1962,226 @@ body.rsvp-modal-open {
     }
 
 }
+
+/* ==================================================
+   WEDDING INVITATION OPENING
+   ================================================== */
+
+.invitation-opening {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            rgba(248, 251, 252, 0.97),
+            rgba(232, 242, 247, 0.97)
+        );
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+}
+
+
+/* OPENING SCREEN AFTER CLICK */
+
+.invitation-opening.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* CONTENT */
+
+.invitation-opening-inner {
+    width: min(600px, 100%);
+    text-align: center;
+
+    padding: 40px 25px;
+
+    transform: translateY(0);
+    opacity: 1;
+
+    transition:
+        transform 1s ease,
+        opacity 1s ease;
+}
+
+.invitation-opening.hide .invitation-opening-inner {
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+
+/* SMALL TITLE */
+
+.invitation-eyebrow {
+    margin: 0 0 25px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    color: #536A78;
+}
+
+
+/* NAMES */
+
+.invitation-opening h1 {
+    margin: 0;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(54px, 9vw, 90px);
+    font-weight: 400;
+    line-height: 0.95;
+
+    color: #454A4F;
+}
+
+.invitation-opening h1 span {
+    font-style: italic;
+    color: #8FA9B8;
+}
+
+
+/* DIVIDER */
+
+.invitation-line {
+    width: 55px;
+    height: 1px;
+
+    margin: 28px auto;
+
+    background: #AFCFE3;
+}
+
+
+/* MESSAGE */
+
+.invitation-message {
+    margin: 0;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    line-height: 1.6;
+
+    color: #536A78;
+}
+
+
+/* DATE */
+
+.invitation-date {
+    margin: 30px 0 5px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+
+    letter-spacing: 3px;
+
+    color: #536A78;
+}
+
+
+/* LOCATION */
+
+.invitation-location {
+    margin: 0 0 35px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+
+    color: #8FA9B8;
+}
+
+
+/* OPEN BUTTON */
+
+.open-invitation {
+    position: relative;
+
+    padding: 13px 25px;
+
+    border: 1px solid #8FA9B8;
+    border-radius: 0;
+
+    background: transparent;
+    color: #536A78;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.open-invitation span {
+    margin-left: 8px;
+    font-size: 13px;
+}
+
+.open-invitation:hover {
+    background: #536A78;
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(60, 75, 85, 0.16);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .invitation-opening {
+        padding: 20px;
+    }
+
+    .invitation-opening-inner {
+        padding: 30px 15px;
+    }
+
+    .invitation-eyebrow {
+        font-size: 8px;
+        letter-spacing: 2.5px;
+    }
+
+    .invitation-opening h1 {
+        font-size: 58px;
+    }
+
+    .invitation-message {
+        font-size: 18px;
+    }
+
+    .invitation-date {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+}
